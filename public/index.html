@@ -1,0 +1,9 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // Receive code from the server and execute it
+    socket.on('codeExecution', (code) => {
+        eval(code);
+    });
+</script>
