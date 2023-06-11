@@ -11,6 +11,9 @@ const port = 3000;
 // Serve Public
 app.use(express.static('public'));
 
+// Serve Admin
+app.use('/admin', express.static('admin'));
+
 // Handle WebSocket Connections
 io.on('connection', (socket) => {
     console.log('A client connected.');
