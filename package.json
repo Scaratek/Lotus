@@ -1,0 +1,24 @@
+{
+    "name": "lotus",
+    "version": "1.0.0",
+    "description": "BeEF but simple and Node",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/scaratek/lotus.git"
+    },
+    "author": "smugumin",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/scaratek/lotus/issues"
+    },
+    "homepage": "https://github.com/scaratek/lotus#readme",
+    "dependencies": {
+        "express": "^4.18.2",
+        "http": "^0.0.1-security",
+        "socket.io": "^4.6.2"
+    }
+}
