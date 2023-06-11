@@ -15,3 +15,11 @@ BeEF But Node, Unsecure, and Simple
 - [WIP] Easier Configuartion
 - [WIP] Authentication
 - [WIP] Payloads
+
+## Installation
+```bash
+$ git clone https://github.com/scaratek/lotus
+$ cd lotus
+$ npm install 
+$ npm start
+```
