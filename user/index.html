@@ -1,9 +1,24 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
-    const socket = io();
+<!DOCTYPE html>
+<html lang="en">
 
-    // Receive code from the server and execute it
-    socket.on('codeExecution', (code) => {
-        eval(code);
-    });
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="/socket.io/socket.io.js">
+    </script>
+    <script>
+        const socket = io();
+
+        // Receive code from the server and execute it
+        socket.on('codeExecution', (code) => {
+            eval(code);
+        });
+    </script>
+</body>
+
+</html>

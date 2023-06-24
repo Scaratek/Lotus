@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Admin Interface</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -11,20 +14,10 @@
     <textarea id="codeInput" placeholder="Enter JavaScript code"></textarea>
     <button id="executeButton">Execute Code</button>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-        const executeButton = document.getElementById('executeButton');
-        const codeInput = document.getElementById('codeInput');
+    <div id="notificationContainer"></div>
 
-        // Execute code on the connected clients when the button is clicked
-        executeButton.addEventListener('click', () => {
-            const code = codeInput.value.trim();
-            if (code !== '') {
-                socket.emit('executeCode', code);
-            }
-        });
-    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
