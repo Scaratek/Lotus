@@ -1,8 +1,4 @@
 @echo off
-
-git add *
-git commit -m "Updated Server"
-git branch -M main
-git push -u origin main
-
-pause
+git commit -m "%1"
+git pull
+git push
