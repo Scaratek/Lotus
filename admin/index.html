@@ -4,32 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Admin Interface</h1>
+    <h1 class="center">Admin Panel</h1>
 
-    <textarea id="codeInput" placeholder="Enter JavaScript code"></textarea>
-    <button id="executeButton">Execute Code</button>
+    <div class="container">
+        <div class="input-container">
+            <label for="jsInput">Execute JavaScript:</label>
+            <input type="text" id="jsInput" placeholder="Enter JavaScript code">
+            <button id="executeJSButton">Execute</button>
+        </div>
 
-    <div id="notificationContainer"></div>
+        <div class="input-container">
+            <label for="htmlInput">Inject HTML:</label>
+            <input type="text" id="htmlInput" placeholder="Enter HTML code">
+            <button id="injectHTMLButton">Inject</button>
+        </div>
+    </div>
+
+    <div id="notificationContainer" class="center"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        const executeButton = document.getElementById('executeButton');
-        const codeInput = document.getElementById('codeInput');
+        const jsInput = document.getElementById('jsInput');
+        const htmlInput = document.getElementById('htmlInput');
+        const cssInput = document.getElementById('cssInput');
 
-        // Execute Code
-        executeButton.addEventListener('click', () => {
-            const code = codeInput.value.trim();
+        // Execute JavaScript
+        const executeJSButton = document.getElementById('executeJSButton');
+        executeJSButton.addEventListener('click', () => {
+            const code = jsInput.value.trim();
             if (code !== '') {
                 socket.emit('executeCode', code);
-                showNotification('Code executed successfully!');
+                showNotification('JavaScript executed successfully!');
             } else {
                 showNotification('Please enter JavaScript code.');
+            }
+        });
+
+        // Inject HTML
+        const injectHTMLButton = document.getElementById('injectHTMLButton');
+        injectHTMLButton.addEventListener('click', () => {
+            const html = htmlInput.value.trim();
+            if (html !== '') {
+                socket.emit('executeCode', `document.body.insertAdjacentHTML('beforeend', '${html}');`);
+                showNotification('HTML injected successfully!');
+            } else {
+                showNotification('Please enter HTML Elements.');
             }
         });
 
@@ -38,9 +63,9 @@
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.innerHTML = `
-    <span class="close">&times;</span>
-    <p>${message}</p>
-  `;
+                <span class="close">&times;</span>
+                <p>${message}</p>
+            `;
             notificationContainer.appendChild(notification);
 
             const closeButton = notification.querySelector('.close');
@@ -58,8 +83,10 @@
             color: white;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            /* Align to the left */
+            justify-content: flex-start;
+            /* Align to the top */
             height: 100vh;
             margin: 0;
             padding: 0;
@@ -67,16 +94,16 @@
         
         h1 {
             font-size: 2rem;
+            text-align: center;
+            margin-top: 1rem;
         }
         
-        textarea {
+        input {
             margin-top: 1rem;
             width: 250px;
-            height: 100px;
             padding: 0.5rem;
             border-radius: 4px;
             border: none;
-            resize: vertical;
             background-color: rgb(55, 55, 55);
             color: white;
         }
@@ -94,7 +121,8 @@
         #notificationContainer {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px;
+            /* Adjusted to the left */
             z-index: 9999;
         }
         

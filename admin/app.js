@@ -1,22 +1,29 @@
-/*
-Currently Because of How Auth is Being Setup Right Now This File Doesnt do Anything 
-Here for Better View
-*/
-
 const socket = io();
+const jsInput = document.getElementById('jsInput');
+const htmlInput = document.getElementById('htmlInput');
+const cssInput = document.getElementById('cssInput');
 
-const executeButton = document.getElementById('executeButton');
-const codeInput = document.getElementById('codeInput');
-const notificationContainer = document.getElementById('notificationContainer');
-
-// Display Correct Notification
-executeButton.addEventListener('click', () => {
-    const code = codeInput.value.trim();
+// Execute JavaScript
+const executeJSButton = document.getElementById('executeJSButton');
+executeJSButton.addEventListener('click', () => {
+    const code = jsInput.value.trim();
     if (code !== '') {
         socket.emit('executeCode', code);
-        showNotification('Code executed successfully!');
+        showNotification('JavaScript executed successfully!');
     } else {
         showNotification('Please enter JavaScript code.');
+    }
+});
+
+// Inject HTML
+const injectHTMLButton = document.getElementById('injectHTMLButton');
+injectHTMLButton.addEventListener('click', () => {
+    const html = htmlInput.value.trim();
+    if (html !== '') {
+        socket.emit('executeCode', `document.body.insertAdjacentHTML('beforeend', '${html}');`);
+        showNotification('HTML injected successfully!');
+    } else {
+        showNotification('Please enter HTML Elements.');
     }
 });
 
@@ -25,9 +32,9 @@ function showNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.innerHTML = `
-    <span class="close">&times;</span>
-    <p>${message}</p>
-  `;
+        <span class="close">&times;</span>
+        <p>${message}</p>
+    `;
     notificationContainer.appendChild(notification);
 
     const closeButton = notification.querySelector('.close');

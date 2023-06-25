@@ -11,13 +11,11 @@
 - It can 
   - Execute JS Code
   - Inject HTML Elements
-  - Inject CSS Styling
 - It even has a payload system so you can store your scripts
 
 ## Features
 - JS Code Execution
-- [WIP] HTML Element Injection
-- [WIP] CSS Style Injection
+- HTML Element Injection (For CSS Do <style>)
 - Easy Configuration
 - Good UI
 - [WIP] Payloads
@@ -32,4 +30,3 @@ $ npm start
 
 ## Configuration
 - You can configure Lotus in `config.js`
-- Authentication Works by /admin?auth=*auth token in config.js*
