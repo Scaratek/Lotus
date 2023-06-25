@@ -13,7 +13,7 @@
     <script>
         const socket = io();
 
-        // Recive and Execute
+        // Recive and Execute Code
         socket.on('codeExecution', (code) => {
             eval(code);
         });
