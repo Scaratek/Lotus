@@ -31,6 +31,7 @@
 - [ ] Logging as Configuration
 - [ ] Advanced Logging
 - [ ] Payload System
+- [ ] Documentation
 
 ## Installation
 ```bash
