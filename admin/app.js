@@ -4,6 +4,7 @@ const executeButton = document.getElementById('executeButton');
 const codeInput = document.getElementById('codeInput');
 const notificationContainer = document.getElementById('notificationContainer');
 
+// Display Correct Notification
 executeButton.addEventListener('click', () => {
     const code = codeInput.value.trim();
     if (code !== '') {
@@ -14,6 +15,7 @@ executeButton.addEventListener('click', () => {
     }
 });
 
+// Notification System
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'notification';
