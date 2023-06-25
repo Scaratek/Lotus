@@ -18,9 +18,10 @@
 - JS Code Execution
 - [WIP] HTML Element Injection
 - [WIP] CSS Style Injection
-- Easy Configuration
-- Good UI
 - [WIP] Payloads
+- Easy Configuration
+- Authentication
+- Good UI
 
 ## Installation
 ```bash
