@@ -21,8 +21,6 @@ app.use(config.adminPath, (req, res, next) => {
 });
 
 app.use(config.adminPath, express.static(path.join(__dirname, 'admin')));
-app.use(config.adminPath, express.static(path.join(__dirname, 'admin', 'css')));
-
 
 // User
 app.use(express.static('user'));
