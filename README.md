@@ -1,5 +1,5 @@
 # Lotus
-BeEF But Node, Unsecure, and Simple
+[BeEF](https://beefproject.com) But Node
 
 ## What is Lotus
 - Lotus is similar to [BeEF](https://beefproject.com/)
