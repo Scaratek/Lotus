@@ -23,3 +23,6 @@ $ cd lotus
 $ npm install 
 $ npm start
 ```
+
+## Configuration
+- You can configure Lotus in `config.js`
