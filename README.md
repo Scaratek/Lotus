@@ -1,6 +1,6 @@
 <p align="center">
 <kbd>
-<img width="480px" src="https://raw.githubusercontent.com/Scaratek/Lotus/main/logo.jpg">
+<img width="240px" src="https://raw.githubusercontent.com/Scaratek/Lotus/main/logo.jpg">
 </kbd>
 </p>
 <h1 align="center">Lotus</h1>
