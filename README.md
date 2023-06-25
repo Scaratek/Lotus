@@ -2,8 +2,12 @@
 [BeEF](https://beefproject.com) But Node
 
 ## What is Lotus
-- Lotus is similar to [BeEF](https://beefproject.com/)
-- It remotely executes JS code to any user connected to the site
+- Lotus is a Node Application that allows remote JS code execution
+- It can 
+  - Execute JS Code
+  - Inject HTML Elements
+  - Inject CSS Styling
+- It even has a payload system so you can store your scripts
 
 ## Feautures
 - JS Code Execution
