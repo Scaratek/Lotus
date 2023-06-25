@@ -11,14 +11,26 @@
 - It can 
   - Execute JS Code
   - Inject HTML Elements
+  - Inject CSS Styles
 - It even has a payload system so you can store your scripts
 
 ## Features
-- JS Code Execution
-- HTML Element Injection (For CSS Do <style>)
-- Easy Configuration
-- Good UI
-- [WIP] Payloads
+### Version 1.0
+- [X] JS Code Execution
+- [X] HTML Element Injection
+- [ ] CSS Style Injection
+- [X] Admin UI
+- [X] Authentication UI
+- [ ] User UI
+- [X] Authentication
+- [X] Configuration
+- [X] Logging
+
+### Version 2.0
+- [ ] Pink > Green Coloring
+- [ ] Logging as Configuration
+- [ ] Advanced Logging
+- [ ] Payload System
 
 ## Installation
 ```bash

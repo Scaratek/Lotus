@@ -3,46 +3,33 @@ body {
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    /* Align to the left */
     justify-content: flex-start;
+    /* Align to the top */
     height: 100vh;
     margin: 0;
     padding: 0;
 }
 
-.center {
+h1 {
+    font-size: 2rem;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 2rem;
-    margin-left: 2rem;
-}
-
-.input-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 1rem;
-}
-
-.input-container label {
-    margin-right: 0.5rem;
-}
-
-.input-container input {
-    margin-right: 0.5rem;
+input {
+    margin-top: 1rem;
+    width: 250px;
     padding: 0.5rem;
     border-radius: 4px;
     border: none;
+    background-color: rgb(55, 55, 55);
+    color: white;
 }
 
-.input-container button {
+button {
+    margin-top: 1rem;
     background-color: green;
     color: white;
     border: none;
@@ -52,12 +39,11 @@ body {
 }
 
 #notificationContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: auto;
-    margin-bottom: 2rem;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    /* Adjusted to the left */
+    z-index: 9999;
 }
 
 .notification {
@@ -65,7 +51,8 @@ body {
     color: white;
     border-radius: 4px;
     padding: 15px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 300px;
     position: relative;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
