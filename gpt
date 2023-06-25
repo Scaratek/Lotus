@@ -1,0 +1,376 @@
+config.js
+```
+module.exports = {
+    host: '0.0.0.0',
+    port: 3000,
+    adminPath: '/admin',
+    userPath: '/user',
+    auth: 'auth-token-here'
+};
+```
+
+server.js
+```
+const path = require('path');
+const socketIO = require('socket.io');
+const express = require('express');
+const http = require('http');
+
+const config = require('./config');
+
+const app = express();
+const server = http.createServer(app).listen(config.port, config.host);
+const io = socketIO(server);
+
+// Admin
+app.use(config.adminPath, (req, res, next) => {
+    const authHeader = req.query.auth;
+
+    if (authHeader === config.auth) {
+        next();
+    } else {
+        res.sendStatus(403);
+    };
+});
+
+app.use(config.adminPath, express.static(path.join(__dirname, 'admin')));
+
+// User
+app.use(express.static('user'));
+
+// Logging
+io.on('connection', (socket) => {
+    console.log('A client connected.');
+
+    // Handle Code Execution
+    socket.on('executeCode', (code) => {
+        console.log('Received code to execute:', code);
+
+        // Broadcast Code
+        io.emit('codeExecution', code);
+    });
+
+    // Disconnection
+    socket.on('disconnect', () => {
+        console.log('A client disconnected.');
+    });
+});
+
+console.log(`App listening at ${config.host}:${config.port}`);
+
+```
+
+admin/app.js
+```
+/*
+Currently Because of How Auth is Being Setup Right Now This File Doesnt do Anything 
+Here for Better View
+Will Be Fixed
+*/
+
+const socket = io();
+
+const executeButton = document.getElementById('executeButton');
+const codeInput = document.getElementById('codeInput');
+const notificationContainer = document.getElementById('notificationContainer');
+
+// Display Correct Notification
+executeButton.addEventListener('click', () => {
+    const code = codeInput.value.trim();
+    if (code !== '') {
+        socket.emit('executeCode', code);
+        showNotification('Code executed successfully!');
+    } else {
+        showNotification('Please enter JavaScript code.');
+    }
+});
+
+// Notification System
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+    <span class="close">&times;</span>
+    <p>${message}</p>
+  `;
+    notificationContainer.appendChild(notification);
+
+    const closeButton = notification.querySelector('.close');
+    closeButton.addEventListener('click', () => {
+        notification.classList.add('closing');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    });
+}
+```
+
+admin/index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>Admin Interface</h1>
+
+    <textarea id="codeInput" placeholder="Enter JavaScript code"></textarea>
+    <button id="executeButton">Execute Code</button>
+
+    <div id="notificationContainer"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const executeButton = document.getElementById('executeButton');
+        const codeInput = document.getElementById('codeInput');
+
+        // Execute Code
+        executeButton.addEventListener('click', () => {
+            const code = codeInput.value.trim();
+            if (code !== '') {
+                socket.emit('executeCode', code);
+            }
+        });
+    </script>
+    <script>
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        // Display Correct Notification
+        executeButton.addEventListener('click', () => {
+            const code = codeInput.value.trim();
+            if (code !== '') {
+                socket.emit('executeCode', code);
+                showNotification('Code executed successfully!');
+            } else {
+                showNotification('Please enter JavaScript code.');
+            }
+        });
+
+        // Notification System
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+    <span class="close">&times;</span>
+    <p>${message}</p>
+  `;
+            notificationContainer.appendChild(notification);
+
+            const closeButton = notification.querySelector('.close');
+            closeButton.addEventListener('click', () => {
+                notification.classList.add('closing');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(25, 25, 25);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        textarea {
+            margin-top: 1rem;
+            width: 250px;
+            height: 100px;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            resize: vertical;
+            background-color: rgb(55, 55, 55);
+            color: white;
+        }
+        
+        button {
+            margin-top: 1rem;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        #notificationContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .notification {
+            background-color: rgb(45, 45, 45);
+            color: white;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            max-width: 300px;
+            position: relative;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .notification.closing {
+            opacity: 0;
+        }
+        
+        .notification p {
+            margin: 0;
+        }
+        
+        .notification .close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</body>
+
+</html>
+```
+
+admin/style.css
+```
+/* 
+Currently Because of How Auth is Being Setup Right Now This File Doesnt do Anything
+Here for Better View
+Will Be Fixed
+*/
+
+body {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+textarea {
+    margin-top: 1rem;
+    width: 250px;
+    height: 100px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    resize: vertical;
+    background-color: rgb(55, 55, 55);
+    color: white;
+}
+
+button {
+    margin-top: 1rem;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+#notificationContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.notification {
+    background-color: rgb(45, 45, 45);
+    color: white;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+    max-width: 300px;
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification.closing {
+    opacity: 0;
+}
+
+.notification p {
+    margin: 0;
+}
+
+.notification .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: red;
+    cursor: pointer;
+}
+```
+
+user/index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Recive and Execute Code
+        socket.on('codeExecution', (code) => {
+            eval(code);
+        });
+    </script>
+</body>
+
+</html>
+```
+user/style.css
+```
+```
+
+I currently do not have any question however when i do you now have the files for you 
+also when i say the admin page i refer to
+admin/index.html
+admin/style.css
+admin/app.js
+when i say user page i refer to
+user/index.html
+user/app.js
+user/style.css
+when i say server i refer to server.js
+when i say config i refer to config.js

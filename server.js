@@ -9,21 +9,20 @@ const app = express();
 const server = http.createServer(app).listen(config.port, config.host);
 const io = socketIO(server);
 
-// Admin
-app.use(config.adminPath, (req, res, next) => {
+// Requests
+app.use('/admin', (req, res, next) => {
     const authHeader = req.query.auth;
 
     if (authHeader === config.auth) {
         next();
     } else {
-        res.sendStatus(403);
-    };
+        res.redirect('/auth');
+    }
 });
 
-app.use(config.adminPath, express.static(path.join(__dirname, 'admin')));
-
-// User
-app.use(express.static('user'));
+app.use('/auth', express.static(path.join(__dirname, 'auth')));
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
+app.use(express.static(path.join(__dirname, 'user')));
 
 // Logging
 io.on('connection', (socket) => {
