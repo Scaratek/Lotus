@@ -14,4 +14,22 @@ const io = socketIO(server);
 app.use('/admin', express.static('admin'));
 app.use(express.static('user'));
 
+// Logging
+io.on('connection', (socket) => {
+    console.log('A client connected.');
+
+    // Handle Code Execution
+    socket.on('executeCode', (code) => {
+        console.log('Received code to execute:', code);
+
+        // Broadcast Code
+        io.emit('codeExecution', code);
+    });
+
+    // Disconnection
+    socket.on('disconnect', () => {
+        console.log('A client disconnected.');
+    });
+});
+
 console.log(`App listening at ${host}:${port}`);
