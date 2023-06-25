@@ -10,10 +10,11 @@ BeEF But Node, Unsecure, and Simple
 - [WIP] HTML Element Injection
 - [WIP] CSS Style Injection
 - [WIP] Sessions
-- [WIP] Better UI for the Admin and User page
+- Admin UI (needs work)
+- [WIP] User UI
 - [WIP] Better Security
 - [WIP] Easier Configuartion
-- [WIP] Authentication
+- Authentication (needs work)
 - [WIP] Payloads
 
 ## Installation
