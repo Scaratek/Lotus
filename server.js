@@ -2,16 +2,14 @@ const socketIO = require('socket.io');
 const express = require('express');
 const http = require('http');
 
-// Configuration
-const host = '0.0.0.0';
-const port = 3000;
+const config = require('./config');
 
 const app = express();
-const server = http.createServer(app).listen(port, host);
+const server = http.createServer(app).listen(config.port, config.host);
 const io = socketIO(server);
 
 // Admin and User 
-app.use('/admin', express.static('admin'));
+app.use(config.adminPath, express.static('admin'));
 app.use(express.static('user'));
 
 // Logging
@@ -32,4 +30,4 @@ io.on('connection', (socket) => {
     });
 });
 
-console.log(`App listening at ${host}:${port}`);
+console.log(`App listening at ${config.host}:${config.port}`);
