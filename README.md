@@ -4,7 +4,7 @@
 </kbd>
 </p>
 <h1 align="center">Lotus</h1>
-<h2 align="center">[BeEF](https://beefproject.com) But Node</h2>
+<h2 align="center"><a href="https://beefproject.com">BeEF</a> But Node</h2>
 
 ### What is Lotus
 - Lotus is a Node Application that allows remote JS code execution
