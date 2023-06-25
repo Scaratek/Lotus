@@ -9,12 +9,8 @@ BeEF But Node, Unsecure, and Simple
 - JS Code Execution
 - [WIP] HTML Element Injection
 - [WIP] CSS Style Injection
-- [WIP] Sessions
-- Admin UI (needs work)
-- [WIP] User UI
-- [WIP] Better Security
-- [WIP] Easier Configuartion
-- Authentication (needs work)
+- Easy Configuration
+- Good UI
 - [WIP] Payloads
 
 ## Installation
