@@ -1,3 +1,9 @@
+/*
+Currently Because of How Auth is Being Setup Right Now This File Doesnt do Anything 
+Here for Better View
+Will Be Fixed
+*/
+
 const socket = io();
 
 const executeButton = document.getElementById('executeButton');

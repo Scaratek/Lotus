@@ -26,3 +26,4 @@ $ npm start
 
 ## Configuration
 - You can configure Lotus in `config.js`
+- Authentication Works by /admin?auth=*auth token in config.js*

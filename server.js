@@ -1,3 +1,4 @@
+const path = require('path');
 const socketIO = require('socket.io');
 const express = require('express');
 const http = require('http');
@@ -8,8 +9,22 @@ const app = express();
 const server = http.createServer(app).listen(config.port, config.host);
 const io = socketIO(server);
 
-// Admin and User 
-app.use(config.adminPath, express.static('admin'));
+// Admin
+app.use(config.adminPath, (req, res, next) => {
+    const authHeader = req.query.auth;
+
+    if (authHeader === config.auth) {
+        next();
+    } else {
+        res.sendStatus(403);
+    };
+});
+
+app.use(config.adminPath, express.static(path.join(__dirname, 'admin')));
+app.use(config.adminPath, express.static(path.join(__dirname, 'admin', 'css')));
+
+
+// User
 app.use(express.static('user'));
 
 // Logging

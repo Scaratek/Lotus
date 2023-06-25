@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -17,7 +17,6 @@
     <div id="notificationContainer"></div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="app.js"></script>
     <script>
         const socket = io();
         const executeButton = document.getElementById('executeButton');
@@ -31,6 +30,113 @@
             }
         });
     </script>
+    <script>
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        // Display Correct Notification
+        executeButton.addEventListener('click', () => {
+            const code = codeInput.value.trim();
+            if (code !== '') {
+                socket.emit('executeCode', code);
+                showNotification('Code executed successfully!');
+            } else {
+                showNotification('Please enter JavaScript code.');
+            }
+        });
+
+        // Notification System
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+    <span class="close">&times;</span>
+    <p>${message}</p>
+  `;
+            notificationContainer.appendChild(notification);
+
+            const closeButton = notification.querySelector('.close');
+            closeButton.addEventListener('click', () => {
+                notification.classList.add('closing');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(25, 25, 25);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        textarea {
+            margin-top: 1rem;
+            width: 250px;
+            height: 100px;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            resize: vertical;
+            background-color: rgb(55, 55, 55);
+            color: white;
+        }
+        
+        button {
+            margin-top: 1rem;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        #notificationContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .notification {
+            background-color: rgb(45, 45, 45);
+            color: white;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            max-width: 300px;
+            position: relative;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .notification.closing {
+            opacity: 0;
+        }
+        
+        .notification p {
+            margin: 0;
+        }
+        
+        .notification .close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
 </body>
 
 </html>
