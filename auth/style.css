@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(25, 25, 25);
+    background-color: #14171c;
     color: white;
     display: flex;
     flex-direction: column;
@@ -25,13 +25,13 @@ input[type="text"] {
     padding: 0.5rem;
     border-radius: 4px;
     border: none;
-    background-color: rgb(55, 55, 55);
+    background-color: #1b1f26;
     color: white;
 }
 
 button[type="submit"] {
     margin-top: 1rem;
-    background-color: green;
+    background-color: #d753e6;
     color: white;
     border: none;
     border-radius: 4px;

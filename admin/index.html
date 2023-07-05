@@ -13,15 +13,21 @@
 
     <div class="container">
         <div class="input-container">
-            <label for="jsInput">Execute JavaScript:</label>
+            <label for="jsInput">Execute Javascript: </label>
             <input type="text" id="jsInput" placeholder="Enter JavaScript code">
             <button id="executeJSButton">Execute</button>
         </div>
 
         <div class="input-container">
-            <label for="htmlInput">Inject HTML:</label>
+            <label for="htmlInput">Inject HTML: </label>
             <input type="text" id="htmlInput" placeholder="Enter HTML code">
             <button id="injectHTMLButton">Inject</button>
+        </div>
+
+        <div class="input-container">
+            <label for="CssInput">Inject CSS :</label>
+            <input type="text" id="CssInput" placeholder="Enter CSS code">
+            <button id="injectCSSButton">Inject</button>
         </div>
     </div>
 
@@ -58,6 +64,18 @@
             }
         });
 
+        // CSS
+        const InjectCSSButton = document.getElementById('injectCSSButton');
+        injectCSSButton.addEventListener('click', () => {
+            const css = CssInput.value.trim();
+            if (css !== '') {
+                socket.emit('executeCode', `document.body.insertAdjacentHTML('beforeend', '<style>${css}</style>');`);
+                showNotification('Css injected successfully!');
+            } else {
+                showNotification('Please enter CSS Styles.');
+            }
+        });
+
         // Notification System
         function showNotification(message) {
             const notification = document.createElement('div');
@@ -79,14 +97,12 @@
     </script>
     <style>
         body {
-            background-color: rgb(25, 25, 25);
+            background-color: #14171c;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            /* Align to the left */
             justify-content: flex-start;
-            /* Align to the top */
             height: 100vh;
             margin: 0;
             padding: 0;
@@ -95,22 +111,30 @@
         h1 {
             font-size: 2rem;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            width: 100%;
         }
         
         input {
             margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
             width: 250px;
             padding: 0.5rem;
             border-radius: 4px;
             border: none;
-            background-color: rgb(55, 55, 55);
+            background-color: #1b1f26;
             color: white;
         }
         
         button {
             margin-top: 1rem;
-            background-color: green;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            background-color: #d753e6;
             color: white;
             border: none;
             border-radius: 4px;
@@ -118,16 +142,23 @@
             cursor: pointer;
         }
         
+        label {
+            font-size: 20px;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            display: block;
+        }
+        
         #notificationContainer {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            /* Adjusted to the left */
             z-index: 9999;
         }
         
         .notification {
-            background-color: rgb(45, 45, 45);
+            background-color: #1b1f26;
             color: white;
             border-radius: 4px;
             padding: 15px;

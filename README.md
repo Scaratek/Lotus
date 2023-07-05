@@ -18,7 +18,7 @@
 ### Version 1.0
 - [X] JS Code Execution
 - [X] HTML Element Injection
-- [ ] CSS Style Injection
+- [X] CSS Style Injection
 - [X] Admin UI
 - [X] Authentication UI
 - [ ] User UI
@@ -27,7 +27,7 @@
 - [X] Logging
 
 ### Version 2.0
-- [ ] Pink > Green Coloring
+- [X] Pink > Green Coloring
 - [ ] Logging as Configuration
 - [ ] Advanced Logging
 - [ ] Payload System
