@@ -32,6 +32,8 @@
 - [ ] Advanced Logging
 - [ ] Payload System
 - [ ] Documentation
+- [ ] Redo the Shit UI
+- [ ] Swap to Typescript
 
 ## Installation
 ```bash
